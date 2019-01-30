@@ -43,8 +43,8 @@ tf.reset_default_graph()
 is_training_placeholder = tf.placeholder(tf.bool)
 batch_size = FLAGS.batch_size
 
-image_tensor_train, orig_img_tensor_train, annotation_tensor_train = inputs(FLAGS.dataset_train, train=True, batch_size=batch_size, num_epochs=10000)
-image_tensor_val, orig_img_tensor_val, annotation_tensor_val = inputs(FLAGS.dataset_val, train=False, num_epochs=10000)
+image_tensor_train, orig_img_tensor_train, annotation_tensor_train = inputs(FLAGS.dataset_train, train=True, batch_size=batch_size, num_epochs=1e4)
+image_tensor_val, orig_img_tensor_val, annotation_tensor_val = inputs(FLAGS.dataset_val, train=False, num_epochs=1e4)
 
 image_tensor, orig_img_tensor, annotation_tensor = tf.cond(is_training_placeholder,
                                                            true_fn=lambda: (image_tensor_train, orig_img_tensor_train, annotation_tensor_train),
@@ -134,7 +134,7 @@ upsampled_logits = tf.nn.conv2d_transpose(upsampled_logits, upsample_filter_tens
 
 
 lbl_onehot = tf.one_hot(annotation_tensor, number_of_classes)
-cross_entropies = tf.nn.softmax_cross_entropy_with_logits_v2(logits=upsampled_logits,
+cross_entropies = tf.nn.softmax_cross_entropy_with_logits(logits=upsampled_logits,
                                                           labels=lbl_onehot)
 
 cross_entropy_loss = tf.reduce_mean(tf.reduce_sum(cross_entropies, axis=-1))

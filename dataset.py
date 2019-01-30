@@ -30,7 +30,7 @@ def read_and_decode(filename_queue):
     shape = tf.shape(image)
     label = tf.reshape(label, [shape[0], shape[1], 1])
 
-    return image, labelzz
+    return image, label
 
 
 def inputs(data_set, train=True, batch_size=1, num_epochs=1, upsample_factor_for_whole_net=32):

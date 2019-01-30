@@ -19,7 +19,7 @@ NUM_CLASSES = 21
 
 
 def read_and_decode(filename_queue):
-    reader = tf.data.TFRecordDataset(fname)
+    reader = tf.data.TFRecordDataset(filename_queue)
     return reader.map(parse)
 
 def parse(serial_exmp):

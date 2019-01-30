@@ -134,7 +134,7 @@ upsampled_logits = tf.nn.conv2d_transpose(upsampled_logits, upsample_filter_tens
 
 
 lbl_onehot = tf.one_hot(annotation_tensor, number_of_classes)
-cross_entropies = tf.nn.softmax_cross_entropy_with_logits(logits=upsampled_logits,
+cross_entropies = tf.nn.softmax_cross_entropy_with_logits_v2(logits=upsampled_logits,
                                                           labels=lbl_onehot)
 
 cross_entropy_loss = tf.reduce_mean(tf.reduce_sum(cross_entropies, axis=-1))

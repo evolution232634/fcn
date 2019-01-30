@@ -19,7 +19,7 @@ NUM_CLASSES = 21
 
 
 def read_and_decode(filename_queue):
-    reader = tf.data.TFRecordDataset()
+    reader = tf.TFRecordReader()
     _, serialized_example = reader.read(filename_queue)
     features = tf.parse_single_example(serialized_example, features={
         'image/encoded': tf.FixedLenFeature([], tf.string),
@@ -39,7 +39,7 @@ def inputs(data_set, train=True, batch_size=1, num_epochs=1, upsample_factor_for
         num_epochs = None
 
     with tf.name_scope('input') as scope:
-        filename_queue = tf.data.Dataset.from_tensor_slices([data_set]).repeat(num_epochs)
+        filename_queue = tf.train.string_input_producer([data_set], num_epochs=num_epochs)
     image, label = read_and_decode(filename_queue)
 
     # Convert image to float32 before subtracting the

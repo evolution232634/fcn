@@ -24,7 +24,7 @@ def read_and_decode(filename_queue):
     
     
 def parser(record):
-    features = tf.parse_single_example(serialized_example, features={
+    features = tf.parse_single_example(record, features={
         'image/encoded': tf.FixedLenFeature([], tf.string),
         'image/label': tf.FixedLenFeature([], tf.string)
     })

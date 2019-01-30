@@ -19,7 +19,7 @@ NUM_CLASSES = 21
 
 
 def read_and_decode(filename_queue):
-    reader = tf.TFRecordReader()
+    reader = tf.data.TFRecordDataset()
     _, serialized_example = reader.read(filename_queue)
     features = tf.parse_single_example(serialized_example, features={
         'image/encoded': tf.FixedLenFeature([], tf.string),
